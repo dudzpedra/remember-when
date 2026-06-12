@@ -1,6 +1,6 @@
 "use client";
 
-import { useRandomMemory } from "@/app/hooks/useRandomMemory";
+import { useRandomMemory } from "@/app/hooks/useMemory";
 import { Button, Card, Flex, Skeleton, Spin, Tooltip, Typography } from "antd";
 import Image from "next/image";
 
@@ -16,10 +16,6 @@ export default function MemoryCard() {
         Ocorreu um erro ao carregar a memória. Tente novamente mais tarde.
       </Typography.Text>
     )
-  }
-
-  const handleClick = () => {
-    nextMemory();
   }
 
   return (
@@ -38,20 +34,12 @@ export default function MemoryCard() {
             />
           )
         }
-        style={{ width: 350 }}
+        style={{ width: 350, padding: 0, marginTop: 30 }}
       >
-        <Flex justify='space-between' align="center">
-          <Card.Meta
-            title="Lembra quando..."
-            description={memory?.phrase || "Nenhuma memória encontrada."}
-          />
-          <Button
-            onClick={handleClick}
-            loading={isLoading}
-          >
-            Próxima memória
-          </Button>
-        </Flex>
+        <Card.Meta
+          title="Lembra quando..."
+          description={memory?.phrase || "Nenhuma memória encontrada."}
+        />
       </Card>
     </Tooltip>
   );

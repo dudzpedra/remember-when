@@ -36,6 +36,37 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Prisma
+
+Prisma is installed as a development dependency and configured using `prisma/schema.prisma` and `prisma.config.ts`.
+
+- The Prisma client is generated to `src/generated/prisma`.
+- Prisma reads `DATABASE_URL` from `.env` by default when using `prisma.config.ts`.
+- If you want to use a different database connection, set `DATABASE_URL` in `.env` before running Prisma commands.
+
+### Common commands
+
+```bash
+npm run prisma:generate
+npm run prisma:migrate:dev -- --name init
+npm run prisma:db:push
+npm run prisma:studio
+```
+
+### Example usage in server code
+
+```ts
+import { PrismaClient } from "./generated/prisma";
+
+const prisma = new PrismaClient();
+
+export async function getMemories() {
+  return prisma.memory.findMany();
+}
+```
+
+> Use Prisma only in server-side code in Next.js. Do not instantiate Prisma in client-side browser bundles.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
